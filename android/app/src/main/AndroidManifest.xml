@@ -2,7 +2,7 @@
     package="com.zambrano.udemy_fluter_delivery">
    <application
         android:label="udemy_fluter_delivery"
-        android:name="${Delivery}"
+
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
