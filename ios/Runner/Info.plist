@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
+<dict>	
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -47,5 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Se necesitan permisos para acceder a la galeria de fotografias</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Se necesitan permisos para acceder a la camara</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Se necesitan permisos para acceder al microfono</string>
 </dict>
 </plist>

@@ -40,7 +40,7 @@ class LoginPage extends StatelessWidget {
 
   Widget _textAppName(){
     return const Text(
-      'Hola',
+      'Bienvenido',
       style:  TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
   Widget _boxForm(BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.33, left: 50, right: 50),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.34, left: 30, right: 30),
       decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: <BoxShadow>[
@@ -82,6 +82,7 @@ class LoginPage extends StatelessWidget {
       child: TextField(
         controller: loginController.emailController,
         keyboardType: TextInputType.emailAddress,
+        maxLength: 20,
         decoration: InputDecoration(
           hintText: 'Correo electronico',
           prefixIcon: Icon(Icons.email)
@@ -92,11 +93,12 @@ class LoginPage extends StatelessWidget {
 
   Widget _textFieldPassword(){
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
       child:  TextField(
         controller: loginController.passwordController,
         keyboardType: TextInputType.text,
         obscureText: true,
+        maxLength: 20,
         decoration:  InputDecoration(
             hintText: 'Contraseña',
             prefixIcon: Icon(Icons.lock)
@@ -108,7 +110,7 @@ class LoginPage extends StatelessWidget {
   Widget _buttonLogin(){
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
           onPressed: () => loginController.login(),
           style: ElevatedButton.styleFrom(
@@ -117,7 +119,8 @@ class LoginPage extends StatelessWidget {
           child: const Text(
             'Acceder',
             style: TextStyle(
-              color: Colors.black
+              color: Colors.black,
+              fontSize: 15
             ),
           )
       ),
@@ -126,11 +129,12 @@ class LoginPage extends StatelessWidget {
 
   Widget _textYourInfo(){
     return Container(
-      margin: const EdgeInsets.only(top: 40, bottom: 45),
+      margin: const EdgeInsets.only(top: 40, bottom: 25),
       child: const Text(
           'Ingresa tu información',
         style: TextStyle(
-          color: Colors.black
+          color: Colors.black,
+          fontSize: 20
         ),
       ),
     );
@@ -144,6 +148,7 @@ class LoginPage extends StatelessWidget {
           '¿No tienes cuenta?',
           style: TextStyle(
             color: Colors.black,
+            fontSize: 15
           ),
         ),
         const SizedBox(width: 10),
@@ -153,7 +158,8 @@ class LoginPage extends StatelessWidget {
               'Registrarme',
             style: TextStyle(
               color: Colors.orangeAccent,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
+              fontSize: 15
             ),
           ),
         )
@@ -166,11 +172,11 @@ class LoginPage extends StatelessWidget {
   Widget _imageCover(){
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 20, bottom: 15),
+        margin: const EdgeInsets.only(top: 25, bottom: 20),
         alignment: Alignment.center,
         child: Image.asset('assets/img/delivery.png',
-        width: 130,
-        height: 130
+        width: 150,
+        height: 150
         )
       ),
     );

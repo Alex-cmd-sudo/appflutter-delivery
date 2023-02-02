@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:udemy_fluter_delivery/src/models/user.dart';
+import 'package:udemy_fluter_delivery/src/providers/users_provider.dart';
 
 class RegisterController extends GetxController{
 
@@ -12,7 +17,12 @@ class RegisterController extends GetxController{
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
-  void register() {
+  UsersProvider usersProvider = UsersProvider();
+
+  ImagePicker picker = ImagePicker();
+  File? imageFile;
+
+  void register() async {
     String email = emailController.text.trim();
     String name = nameController.text;
     String lastName = lastNameController.text;
@@ -24,7 +34,18 @@ class RegisterController extends GetxController{
     print('Password: ${password}');
 
     if(isValidForm(email, name, lastName, telephone, password, confirmPassword)){
-      Get.snackbar('Formulario valido', 'ok');
+
+      User user = User(
+        email: email,
+        name: name,
+        lastname: lastName,
+        telephone: telephone,
+        password: password
+      );
+
+      Response response = await usersProvider.create(user);
+
+      Get.snackbar('Registro correcto', 'Te has registrado exitosamente');
     }
   }
 
@@ -71,6 +92,54 @@ class RegisterController extends GetxController{
     }
 
     return true;
+  }
+
+  Future selectImage(ImageSource imageSource) async{
+    
+    XFile? image = await picker.pickImage(source: imageSource);
+    
+    if(image != null){
+      imageFile = File(image.path);
+      update();
+    }
+
+  }
+
+  void showAlertDialog(BuildContext context){
+
+    Widget galleryButton = ElevatedButton(
+      onPressed: () {
+        Get.back();
+        selectImage(ImageSource.gallery);
+      },
+      child: Text('Galeria',
+        style: TextStyle(
+          color: Colors.black
+        ))
+      );
+
+      Widget cameraButton = ElevatedButton(
+      onPressed: () {
+        Get.back();
+        selectImage(ImageSource.camera);
+      },
+      child: Text('Camara',
+        style: TextStyle(
+          color: Colors.black
+          ))
+      );
+
+      AlertDialog alertDialog = AlertDialog(
+      title: Text('Selecciona una opción'),
+      actions: [
+      galleryButton,
+      cameraButton
+      ]
+      );
+  
+    showDialog(context: context, builder: (BuildContext context) {
+      return alertDialog;
+    });
   }
 
 }
