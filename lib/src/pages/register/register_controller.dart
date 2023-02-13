@@ -39,7 +39,7 @@ class RegisterController extends GetxController{
     if(isValidForm(email, name, lastName, telephone, password, confirmPassword)){
 
       ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: 'Registrando usuario');
+      progressDialog.show(max: 300, msg: 'Registrando usuario');
 
       User user = User(
         email: email,
@@ -70,11 +70,8 @@ class RegisterController extends GetxController{
   }
 
     void _goToHomePage(ResponseApi responseApi){
-
-    GetStorage().write('user', responseApi.data);
-    Get.snackbar('Inicio de sesión exitoso', responseApi.message ?? '');  
-    Get.offNamedUntil('/home', ((route) => false));
-    
+      GetStorage().write('user', responseApi.data);
+      Get.offNamedUntil('/client/products/list', ((route) => false));
   }
 
   bool isValidForm(String email, String name, String lastName, String telephone, String password, String confirmPassword){
@@ -163,10 +160,11 @@ class RegisterController extends GetxController{
       );
 
       AlertDialog alertDialog = AlertDialog(
-      title: const Text('Selecciona una opción'),
+        title: const Text('Selecciona una opción', textAlign: TextAlign.center),
+        actionsAlignment: MainAxisAlignment.center,
       actions: [
-      galleryButton,
-      cameraButton
+        galleryButton,
+        cameraButton
       ]
       );
   

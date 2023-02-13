@@ -52,8 +52,9 @@ class LoginPage extends StatelessWidget {
   Widget _boxForm(BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.34, left: 30, right: 30),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35, left: 30, right: 30),
       decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(35)),
         color: Colors.white,
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -69,7 +70,7 @@ class LoginPage extends StatelessWidget {
             _textYourInfo(),
             _textFieldEmail(),
             _textFieldPassword(),
-            _buttonLogin()
+            _buttonLogin(context)
           ],
         ),
       ),
@@ -83,7 +84,7 @@ class LoginPage extends StatelessWidget {
         controller: loginController.emailController,
         keyboardType: TextInputType.emailAddress,
         maxLength: 20,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Correo electronico',
           prefixIcon: Icon(Icons.email)
         ),
@@ -99,7 +100,7 @@ class LoginPage extends StatelessWidget {
         keyboardType: TextInputType.text,
         obscureText: true,
         maxLength: 20,
-        decoration:  InputDecoration(
+        decoration:  const InputDecoration(
             hintText: 'Contraseña',
             prefixIcon: Icon(Icons.lock)
         ),
@@ -107,12 +108,12 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buttonLogin(){
+  Widget _buttonLogin(BuildContext context){
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
-          onPressed: () => loginController.login(),
+          onPressed: () => loginController.login(context),
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 15)
           ),
@@ -172,7 +173,7 @@ class LoginPage extends StatelessWidget {
   Widget _imageCover(){
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 25, bottom: 20),
+        margin: const EdgeInsets.only(top: 10, bottom: 20),
         alignment: Alignment.center,
         child: Image.asset('assets/img/delivery.png',
         width: 150,

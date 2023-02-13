@@ -39,8 +39,9 @@ class RegisterPage extends StatelessWidget {
   Widget _boxForm(BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height * 0.65,
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.29, left: 30, right: 30),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.27, left: 30, right: 30),
       decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(35)),
           color: Colors.white,
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -170,7 +171,7 @@ class RegisterPage extends StatelessWidget {
   Widget _buttonRegister(BuildContext context){
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
           onPressed: () => registerController.register(context),
           style: ElevatedButton.styleFrom(
@@ -199,7 +200,7 @@ class RegisterPage extends StatelessWidget {
             backgroundImage: registerController.imageFile != null 
             ? FileImage(registerController.imageFile!)
             : AssetImage('assets/img/user_profile.png') as ImageProvider,
-            radius: 80,
+            radius: 70,
             backgroundColor: Colors.white,
           ),
           ),
