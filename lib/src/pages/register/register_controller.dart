@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
+import 'package:udemy_fluter_delivery/src/models/response_api.dart';
 import 'package:udemy_fluter_delivery/src/models/user.dart';
 import 'package:udemy_fluter_delivery/src/providers/users_provider.dart';
 
@@ -22,7 +25,7 @@ class RegisterController extends GetxController{
   ImagePicker picker = ImagePicker();
   File? imageFile;
 
-  void register() async {
+  void register(BuildContext context) async {
     String email = emailController.text.trim();
     String name = nameController.text;
     String lastName = lastNameController.text;
@@ -30,10 +33,13 @@ class RegisterController extends GetxController{
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
 
-    print('Email: ${email}');
-    print('Password: ${password}');
+    //print('Email: ${email}');
+    //print('Password: ${password}');
 
     if(isValidForm(email, name, lastName, telephone, password, confirmPassword)){
+
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 100, msg: 'Registrando usuario');
 
       User user = User(
         email: email,
@@ -43,10 +49,32 @@ class RegisterController extends GetxController{
         password: password
       );
 
-      Response response = await usersProvider.create(user);
+      //Response response = await usersProvider.create(user);
+      //Get.snackbar('Registro correcto', 'Te has registrado exitosamente');
 
-      Get.snackbar('Registro correcto', 'Te has registrado exitosamente');
+      Stream stream = await usersProvider.createUserWithImage(user, imageFile!);
+      stream.listen((res) { 
+        
+        progressDialog.close();
+        ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
+
+        if(responseApi.success == true){
+          _goToHomePage(responseApi);
+        }
+        else{
+          Get.snackbar('Registro fallido', responseApi.message ?? '');
+        }
+
+      });
     }
+  }
+
+    void _goToHomePage(ResponseApi responseApi){
+
+    GetStorage().write('user', responseApi.data);
+    Get.snackbar('Inicio de sesión exitoso', responseApi.message ?? '');  
+    Get.offNamedUntil('/home', ((route) => false));
+    
   }
 
   bool isValidForm(String email, String name, String lastName, String telephone, String password, String confirmPassword){
@@ -91,6 +119,11 @@ class RegisterController extends GetxController{
       return false;
     }
 
+    if(imageFile == null){
+      Get.snackbar(formInvalid, 'Es necesario una imagen de perfil');
+      return false;
+    }
+
     return true;
   }
 
@@ -112,7 +145,7 @@ class RegisterController extends GetxController{
         Get.back();
         selectImage(ImageSource.gallery);
       },
-      child: Text('Galeria',
+      child: const Text('Galeria',
         style: TextStyle(
           color: Colors.black
         ))
@@ -123,14 +156,14 @@ class RegisterController extends GetxController{
         Get.back();
         selectImage(ImageSource.camera);
       },
-      child: Text('Camara',
+      child: const Text('Camara',
         style: TextStyle(
           color: Colors.black
           ))
       );
 
       AlertDialog alertDialog = AlertDialog(
-      title: Text('Selecciona una opción'),
+      title: const Text('Selecciona una opción'),
       actions: [
       galleryButton,
       cameraButton

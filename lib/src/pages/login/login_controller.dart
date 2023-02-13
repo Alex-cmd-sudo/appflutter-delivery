@@ -19,8 +19,8 @@ class LoginController extends GetxController{
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
-    print('Email: ${email}');
-    print('Password: ${password}');
+    //print('Email: ${email}');
+    //print('Password: ${password}');
 
     if(isValidForm(email, password)){      
      

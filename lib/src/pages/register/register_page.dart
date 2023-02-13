@@ -60,7 +60,7 @@ class RegisterPage extends StatelessWidget {
             _textFieldTelephone(),
             _textFieldPassword(),
             _textFieldConfirmPassword(),
-            _buttonRegister()
+            _buttonRegister(context)
           ],
         ),
       ),
@@ -113,7 +113,7 @@ class RegisterPage extends StatelessWidget {
         keyboardType: TextInputType.text,
         maxLength: 20,
         decoration: const InputDecoration(
-            hintText: 'Apellido',
+            hintText: 'Apellido(s)',
             prefixIcon: Icon(Icons.person_outline)
         ),
       ),
@@ -167,12 +167,12 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _buttonRegister(){
+  Widget _buttonRegister(BuildContext context){
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: ElevatedButton(
-          onPressed: () => registerController.register(),
+          onPressed: () => registerController.register(context),
           style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 15)
           ),
