@@ -39,7 +39,7 @@ class RegisterPage extends StatelessWidget {
   Widget _boxForm(BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height * 0.65,
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.27, left: 30, right: 30),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.29, left: 30, right: 30),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(35)),
           color: Colors.white,
@@ -191,7 +191,7 @@ class RegisterPage extends StatelessWidget {
   Widget _imageUser(context){
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 15),
         alignment: Alignment.topCenter,
         child: GestureDetector(
           onTap: () => registerController.showAlertDialog(context),
@@ -200,7 +200,7 @@ class RegisterPage extends StatelessWidget {
             backgroundImage: registerController.imageFile != null 
             ? FileImage(registerController.imageFile!)
             : AssetImage('assets/img/user_profile.png') as ImageProvider,
-            radius: 70,
+            radius: 60,
             backgroundColor: Colors.white,
           ),
           ),

@@ -141,7 +141,7 @@ class ClientProfileUpdatedPage extends StatelessWidget {
   Widget _imageUser(context){
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 20),
         alignment: Alignment.topCenter,
         child: GestureDetector(
           onTap: () => con.showAlertDialog(context),
@@ -152,7 +152,7 @@ class ClientProfileUpdatedPage extends StatelessWidget {
                   : con.user.image != null
                     ? NetworkImage(con.user.image!)
                     : AssetImage('assets/img/user_profile.png') as ImageProvider,
-              radius: 70,
+              radius: 60,
               backgroundColor: Colors.white,
             ),
           ),

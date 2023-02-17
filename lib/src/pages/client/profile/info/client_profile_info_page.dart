@@ -97,13 +97,13 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _imageUser(context){
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 15),
         alignment: Alignment.topCenter,
         child: CircleAvatar(
           backgroundImage: con.user.value.image != null
               ? NetworkImage(con.user.value.image!)
               : AssetImage('assets/img/user_profile.png') as ImageProvider,
-          radius: 70,
+          radius: 60,
           backgroundColor: Colors.white,
         )
       )

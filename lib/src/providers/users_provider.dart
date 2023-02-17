@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path/path.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,7 @@ import 'package:udemy_fluter_delivery/src/models/user.dart';
 
 class UsersProvider extends GetConnect {
   static const String url = '${Enviroment.API_URL}api/users';
+  User userSession = User.fromJson(GetStorage().read('user') ?? {});
 
   //Creando registro sin imagen
   Future<Response> create(User user) async {
@@ -47,11 +49,19 @@ class UsersProvider extends GetConnect {
       (
         '$url/updateWithoutImage',
         user.toJson(),
-        headers: {'Content-Type': 'application/json'}
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userSession.sessionToken ?? ''
+        }
     );
 
     if(response.body == null){
       Get.snackbar('Error', 'Ocurrio un error al intentar actualizar la información');
+      return ResponseApi();
+    }
+
+    if(response.statusCode == 401){
+      Get.snackbar('Error', 'No esta autorizado para realizar esta petición');
       return ResponseApi();
     }
 
@@ -65,7 +75,7 @@ class UsersProvider extends GetConnect {
 
     Uri uri = Uri.http(Enviroment.API_URL_OLD, '/api/users/update');
     final request = http.MultipartRequest('PUT', uri);
-
+    request.headers['Authorization'] = userSession.sessionToken ?? '';
     request.files.add(http.MultipartFile(
       'image',
       http.ByteStream(image.openRead().cast()),
