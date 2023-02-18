@@ -29,28 +29,30 @@ class LoginController extends GetxController{
 
       ResponseApi responseApi = await usersProvider.login(email, password);
 
-      if(responseApi.success == true){       
+      if(responseApi.success == true){
+
         GetStorage().write('user', responseApi.data);
+        user = User.fromJson(GetStorage().read('user') ?? {});
 
         if(user.roles!.length > 1){
-          _goToRolesPage(responseApi);
+          _goToRolesPage();
         }
         else{
-          _goToClientProductListPage(responseApi);
+          _goToClientHomePage();
         }
       }
       else{
-        Get.snackbar('Inicio de sesión fallido', responseApi.message ?? '');  
+        Get.snackbar('Inicio de sesión fallido', responseApi.message ?? '');
       }
 
-    }    
+    }
   }
 
-  void _goToClientProductListPage(ResponseApi responseApi){
-    Get.offNamedUntil('/client/products/list', ((route) => false));
+  void _goToClientHomePage(){
+    Get.offNamedUntil('/client/home', ((route) => false));
   }
 
-  void _goToRolesPage(ResponseApi responseApi){
+  void _goToRolesPage(){
     Get.offNamedUntil('/roles', ((route) => false));
   }
 

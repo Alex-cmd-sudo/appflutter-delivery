@@ -39,7 +39,7 @@ class RegisterPage extends StatelessWidget {
   Widget _boxForm(BuildContext context){
     return Container(
       height: MediaQuery.of(context).size.height * 0.65,
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.29, left: 30, right: 30),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25, left: 30, right: 30),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(35)),
           color: Colors.white,

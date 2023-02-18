@@ -112,33 +112,32 @@ class ClientProfileInfoPage extends StatelessWidget {
 
   Widget _textName(){
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10, left: 30, right: 30),
       child: ListTile(
         leading: Icon(Icons.person),
         title: Text('${con.user.value.name ?? ''} ${con.user.value.lastname ?? ''}'),
         subtitle: Text('Nombre de usuario'),
       )
-      /*Text(
-        '${con.user.name ?? ''} ${con.user.lastname ?? ''}',
-        style: const TextStyle(
-            color: Colors.black,
-            fontSize: 20
-        ),
-      ),*/
     );
   }  Widget _textEmail(){
-    return ListTile(
-      leading: Icon(Icons.email),
-      title: Text(con.user.value.email ?? ''),
-      subtitle: Text('Correo electronico'),
+    return Container(
+      margin: const EdgeInsets.only(top: 0, left: 30, right: 30),
+      child: ListTile(
+        leading: Icon(Icons.email),
+        title: Text(con.user.value.email ?? ''),
+        subtitle: Text('Correo electronico'),
+      ),
     );
   }
 
   Widget _textPhone(){
-    return ListTile(
-      leading: Icon(Icons.phone),
-      title: Text(con.user.value.telephone ?? ''),
-      subtitle: Text('Celular'),
+    return Container(
+      margin: const EdgeInsets.only(top: 0, left: 30, right: 30),
+      child: ListTile(
+        leading: Icon(Icons.phone),
+        title: Text(con.user.value.telephone ?? ''),
+        subtitle: Text('Celular'),
+      ),
     );
   }
 

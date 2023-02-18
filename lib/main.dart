@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:udemy_fluter_delivery/src/models/user.dart';
+import 'package:udemy_fluter_delivery/src/pages/client/home/client_home_page.dart';
 import 'package:udemy_fluter_delivery/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:udemy_fluter_delivery/src/pages/client/profile/info/client_profile_info_page.dart';
 import 'package:udemy_fluter_delivery/src/pages/client/profile/info/update/client_profile_update_page.dart';
@@ -10,6 +11,7 @@ import 'package:udemy_fluter_delivery/src/pages/delivery/orders/list/delivery_or
 import 'package:udemy_fluter_delivery/src/pages/home/home_page.dart';
 import 'package:udemy_fluter_delivery/src/pages/login/login_page.dart';
 import 'package:udemy_fluter_delivery/src/pages/register/register_page.dart';
+import 'package:udemy_fluter_delivery/src/pages/restaurant/home/restaurant_home_page.dart';
 import 'package:udemy_fluter_delivery/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:udemy_fluter_delivery/src/pages/roles/roles_page.dart';
 
@@ -34,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('Roles: ${userSession.roles!.length}');
   }
 
   @override
@@ -41,17 +44,19 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Delivery Udemy',
       debugShowCheckedModeBanner: true,
-      initialRoute: userSession.id != null ? userSession.roles!.length > 1 ? '/roles' : '/client/products/list' : '/',
+      initialRoute: userSession.id != null ? userSession.roles!.length > 1 ? '/roles' : '/client/home' : '/',
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/roles', page: () => RolesPage()),
         GetPage(name: '/restaurant/orders/list', page: () => RestaurantOrdersListPage()),
+        GetPage(name: '/restaurant/home', page: () => RestaurantHomePage()),
         GetPage(name: '/delivery/orders/list', page: () => DeliveryOrdersListPage()),
         GetPage(name: '/client/products/list', page: () => ClientProductsListPage()),
         GetPage(name: '/client/profile/info', page: () => ClientProfileInfoPage()),
         GetPage(name: '/client/profile/update', page: () => ClientProfileUpdatedPage()),
+        GetPage(name: '/client/home', page: () => ClientHomePage()),
       ],
       theme: ThemeData(
         primaryColor: Colors.amber,
